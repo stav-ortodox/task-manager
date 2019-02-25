@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="style.css">
-
+	<script src="validate.js"></script>
 	<!-- Последняя компиляция и сжатый JavaScript -->  
 	<!-- <link type="text/javascript" href="js/bootstrap.min.js"> -->
 </head>
@@ -36,6 +36,11 @@
 	<!-- Кнопка вызова модального окна -->
 	<button type="button" class="btnn btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 		Добавить задачу
+	</button>
+
+	<!-- Кнопка очищения таблицы-->
+	<button type="submit" class="btnn btn btn-danger" id="clearT">
+		Очистить таблицу
 	</button>
 
 
@@ -139,6 +144,16 @@ if (isset($_POST['edit'])) { ?>
 
 		</tbody>
 	</table>
+
+
+	<form method="post" action="">
+
+	  <input type="email" name="email" id="email" placeholder="Ener email">
+	  <span id="message"></span>
+	  <input type="button" id="submit" value="Register">
+	</form>
+
+
 	 
 </div>
 
@@ -147,6 +162,17 @@ if (isset($_POST['edit'])) { ?>
 	$('#unset').bind('click', function(){
  	window.location.href='index.php'
 	});
+
+
+
+ $('#clearT').bind('click', function(){
+ 		var clearT = '1';
+ 		$.ajax({
+ 		  type: "POST",
+ 		  url: "action.php",
+ 		  data: {clearT: clearT},
+ 		});
+ 	});
 </script>
 
 
