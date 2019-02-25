@@ -39,32 +39,55 @@
 	</button>
 
 
-	<!-- Модальное окно -->
+<!-- Модальное окно -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  	<div class="modal-dialog" role="document">
-	    	<div class="modal-content">
-	      		<div class="modal-header">
-	        		<h5 class="modal-title" id="exampleModalLabel">Добавление новой задачи</h5>
-	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          			<span aria-hidden="true">&times;</span>
-	        		</button>
-	      		</div>
-	      		<form action="action.php" method="post">
-		      		<div class="modal-body">
-	      				
-	        		<input class="form-control" name="input-task"	type="text" placeholder="Новая задача">
-	        		
-		      		</div>
-	      		<div class="modal-footer">
-	        		<button type="submit" class="btn btn-info" name="btn-info">Добавить</button>
-	        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-	      		</div>
-	      		</form>
-	    	</div>
-	  	</div>
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<?php 
+				if (!isset($_POST['edit'])) { ?>
+				
+				<form action="action.php" method="post">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Добавление задачи</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true" name="unset">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<input class="form-control" name="input-task"	value="<?= $task ?>" type="text" placeholder="Добавление задачи">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-info" name="add">Добавить</button>
+						<button type="submit" class="btn btn-secondary" name="unset" data-dismiss="modal">Закрыть</button>
+					</div>
+				</form>
+				<? } ?>
+
+				<!-- ***************************************************************************************** -->
+
+				<?php 
+				if (isset($_POST['edit'])) { ?>
+				
+				<form action="action.php" method="post">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Редактирование задачи</h5>
+					</div>
+					<div class="modal-body">
+						<input class="form-control" name="input-task"	value="<?= $task ?>" type="text" placeholder="Редакция задачи">
+						<input type="hidden" name="id" value="<?= $ok ?>">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-info" name="add_edit">Добавить</button>
+						<button type="submit" class="btn btn-secondary" name="unset" data-dismiss="modal">Закрыть</button>
+					</div>
+				</form>
+				<?php } ?>
+
+			</div>
+		</div>
 	</div>
 
-	
 
 	
 	  	<table class="cinereousTable table">
@@ -86,24 +109,22 @@
 	  		</tfoot>
 
 	  		<tbody>
-						<!-- <?php require_once "array.php";?> -->
-	  			 <?  //извлекаем все записи из таблицы
-       $query2 = mysqli_query($connection, "SELECT * FROM `tasks` ORDER BY `id`");
+
+	  		<?  //извлекаем все записи из таблицы
+       	$query2 = mysqli_query($connection, "SELECT * FROM `tasks` ORDER BY `id`");
        	$num = 1;
-       while($row = $query2->fetch_assoc()) { 
-       	
-       	// $num++;
-       ?>
+       	while($row = $query2->fetch_assoc()) { ?>
+
 	  			<tr>
-	  				<td><?= $num++; ?></td>
-	  				<td id="text"><?= $row['task'] ?></td>
-	  				<td><?= $row['date'] ?></td>
+	  				<td><h6><?= $num++; ?></h6></td>
+	  				<td id="text"><h6><?= $row['task'] ?></p></td>
+	  				<td><h6><?= $row['date'] ?></h6></td>
 	  				<td>
 	  					<form action="action.php" method="post">
-	  						<button class="btn btn-success" type="submit" name="ok"><i class="fa fa-check" aria-hidden="true"></i></button>
-	  						<button class="btn btn-info" type="submit" name="edit<?= $row['id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-	  						<button class="btn btn-danger" type="submit" name="delete<?= $row['id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
-	  						<input type="hidden" name="hidden"	value="<?= $row['id'] ?>">	
+	  						<button class="btn btn-success" type="submit" name="ok" title = "сторка <?= $num-1; ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
+	  						<button class="btn btn-info" type="submit" name="edit" title = "сторка <?= $num-1; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+	  						<button class="btn btn-danger" type="submit" name="delete" title = "сторка <?= $num-1; ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+	  						<input type="hidden" name="hidden"	value="<?= $row['id'] ?>">
 	  					</form>
 	  				</td>
 	  			</tr>
@@ -119,14 +140,3 @@
 
 </body>
 </html>
-<?php /*require_once "footer.php";*/
-
-// $array = array();
-
-
-// $array[] = "item";
-// $array[$key] = "item";
-// array_push($array, "item", "another item", "ещё что-то");
-
-
-?>
