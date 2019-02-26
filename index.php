@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Менеджер задач</title>
+
+	
 	
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	
@@ -16,11 +18,25 @@
 
 	<!-- Дополнение к теме -->  
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+	<link rel="apple-touch-icon" sizes="57x57" href="/img/icons/favicon.iso">
 	<link rel="stylesheet" href="style.css">
-	<!-- <script src="validate.js"></script> -->
-	<!-- Последняя компиляция и сжатый JavaScript -->  
-	<!-- <link type="text/javascript" href="js/bootstrap.min.js"> -->
+	<link rel="apple-touch-icon" sizes="57x57" href="/img/icons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/img/icons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/img/icons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/img/icons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/img/icons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/img/icons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/img/icons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/img/icons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/img/icons/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/img/icons/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
 </head>
 <body>
 
@@ -33,14 +49,26 @@
 
 <div class="container">
 
+	<div class="fav">
+		<img src="img/icons/apple-icon-180x180.png" alt="">
+	</div>
+
+	<h1>Менеджер задач</h1>
+
+
 	<!-- Кнопка вызова модального окна -->
 	<button type="button" class="btnn btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 		Добавить задачу
 	</button>
 
 	<!-- Кнопка очищения таблицы-->
-	<button type="submit" class="btnn btn btn-danger" id="clearT">
-		Очистить таблицу
+	<button type="submit" class="btnn btn btn-warning" id="clearT">
+		Очистить лист
+	</button>
+
+	<!-- Кнопка очищения таблицы-->
+	<button type="submit" class="btnn btn btn-danger" id="clearT" title="Удалить лист!">
+		<i class="fa fa-trash" aria-hidden="true"></i>
 	</button>
 
 
@@ -59,7 +87,7 @@ if (!isset($_POST['edit'])) { ?>
 					</button>
 				</div>
 				<div class="modal-body">
-					<input class="form-control" name="input-task"	value="<?= $task ?>" type="text" placeholder="Добавление задачи">
+					<textarea class="form-control" name="input-task" id="input-task" placeholder="Добавление задачи" cols="30" rows="10"><?= $task ?></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-info" name="add">Добавить</button>
@@ -84,7 +112,7 @@ if (isset($_POST['edit'])) { ?>
 					<h5 class="modal-title" id="exampleModalLabel">Редактирование задачи</h5>
 				</div>
 				<div class="modal-body">
-					<input class="form-control" name="input-task"	value="<?= $task ?>" type="text" placeholder="Редакция задачи">
+					<textarea class="form-control" name="input-task" id="input-task" placeholder="Редакция задачи" cols="30" rows="10"><?= $task ?></textarea>
 					<input type="hidden" name="id" value="<?= $ok ?>">
 				</div>
 				<div class="modal-footer">
