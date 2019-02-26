@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="style.css">
-	<script src="validate.js"></script>
+	<!-- <script src="validate.js"></script> -->
 	<!-- Последняя компиляция и сжатый JavaScript -->  
 	<!-- <link type="text/javascript" href="js/bootstrap.min.js"> -->
 </head>
@@ -119,12 +119,14 @@ if (isset($_POST['edit'])) { ?>
 			</tr>
 		</tfoot>
 
-		<tbody>
+		<tbody id="message">
 
 		<?  //извлекаем все записи из таблицы
-   	$query2 = mysqli_query($connection, "SELECT * FROM `tasks` ORDER BY `id`");
+   	
+   	$query = mysqli_query($connection, "SELECT * FROM `tasks` ORDER BY `id`");
    	$num = 1;
-   	while($row = $query2->fetch_assoc()) { ?>
+   	if (isset($query)  ) {
+   		while($row = $query->fetch_assoc()) { ?>
 
 			<tr>
 				<td><h6><?= $num++; ?></h6></td>
@@ -140,18 +142,10 @@ if (isset($_POST['edit'])) { ?>
 				</td>
 			</tr>
 
-			<? } ?>
+			<? } } ?>
 
 		</tbody>
 	</table>
-
-
-	<form method="post" action="">
-
-	  <input type="email" name="email" id="email" placeholder="Ener email">
-	  <span id="message"></span>
-	  <input type="button" id="submit" value="Register">
-	</form>
 
 
 	 
@@ -167,12 +161,18 @@ if (isset($_POST['edit'])) { ?>
 
  $('#clearT').bind('click', function(){
  		var clearT = '1';
- 		$.ajax({
- 		  type: "POST",
- 		  url: "action.php",
- 		  data: {clearT: clearT},
+ 		confirm('Вы действительно хотите очистить весь лист задач?');
+			if (result === false) {return;} 
+			else {$.ajax({
+		 		  type: "POST",
+		 		  url: "action.php",
+		 		  data: {clearT: clearT},
+		 		  success:function(msg){$('#message').html(msg)};
+		 							});
+       			}
  		});
- 	});
+ 	
+
 </script>
 
 

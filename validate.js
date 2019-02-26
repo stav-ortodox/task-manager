@@ -31,7 +31,7 @@ $(document).ready(function(){
           url:'action.php',
           data:'add_email='+email,
           success:function(msg){
-            $('#message').html(msg);
+            $('#message').html('<font color="red">Этот Email уже занят.</font>');
           }
         });
       }

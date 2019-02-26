@@ -79,51 +79,67 @@ $clear = $_POST['clearT'];
  if (isset($clear)) {
 	$query ="DELETE FROM tasks ORDER BY id DESC LIMIT 1";
 	$result = mysqli_query($connection, $query) or die("Ошибка " . mysqli_error($connection));
-	mysqli_close($connection);
+	// mysqli_close($connection);
 	// $query ="TRUNCATE TABLE tasks";
 	// $result = mysqli_query($connection, $query) or die("Ошибка " . mysqli_error($connection));
 	// mysqli_close($connection);
 	if(mysqli_query($connection, $query)){
-    echo '<font color="green">Success</font>';
-  }else{
-    echo '<font color="red">Error</font>';
-  }
-	// exit(); 
- }
+    $query = mysqli_query($connection, "SELECT * FROM `tasks` ORDER BY `id`");
+           	$num = 1;
+           	if (isset($query)  ) {
+           		while($row = $query->fetch_assoc()) { ?>
 
-
-
-
- if(isset($_POST['email']) && $_POST['email'] != ''){
-   $email = $_POST['email'];
-   $email = mysqli_real_escape_string($connection,$email);
-   if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-     echo 'invalid';
-   }else{
-     $sql = "SELECT id FROM email WHERE email='$email'";
-     $result = mysqli_query($connection,$sql);
-     if(mysqli_num_rows($result) == 1){
-       echo 'invalid';
-     }else{
-       echo 'valid';
+        			<tr>
+        				<td><h6><?= $num++; ?></h6></td>
+        				<td id="text"><h6><?= $row['task'] ?></p></td>
+        				<td><h6><?= $row['date'] ?></h6></td>
+        				<td>
+        					<form action="action.php" method="post">
+        						<button class="btn btn-success" type="submit" name="ok" title="сторка <?= $num-1; ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
+        						<button class="btn btn-info" type="submit" name="edit" title="сторка <?= $num-1; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        						<button class="btn btn-danger" type="submit" name="delete" title="сторка <?= $num-1; ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        						<input type="hidden" name="hidden" value="<?= $row['id'] ?>">
+        					</form>
+        				</td>
+        			</tr>
+        		<?}
+        	}
+      	}
      }
-   }
- }
+    
 
- if(isset($_POST['add_email']) && $_POST['add_email'] != ''){
-   $email = mysqli_real_escape_string($connection,$_POST['add_email']);
-   $sql = "INSERT INTO email(email) VALUES('$email')";
 
-   if(mysqli_query($connection,$sql)){
-     echo '<font color="green">Success</font>';
-   }else{
-     echo '<font color="red">Error</font>';
-   }
- }
+
+
+ // if(isset($_POST['email']) && $_POST['email'] != ''){
+ //   $email = $_POST['email'];
+ //   $email = mysqli_real_escape_string($connection,$email);
+ //   if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+ //     echo 'invalid';
+ //   }else{
+ //     $sql = "SELECT id FROM email WHERE email='$email'";
+ //     $result = mysqli_query($connection,$sql);
+ //     if(mysqli_num_rows($result) == 1){
+ //       echo 'invalid';
+ //     }else{
+ //       echo 'valid';
+ //     }
+ //   }
+ // }
+
+ // if(isset($_POST['add_email']) && $_POST['add_email'] != ''){
+ //   $email = mysqli_real_escape_string($connection,$_POST['add_email']);
+ //   $sql = "INSERT INTO email(email) VALUES('$email')";
+
+ //   if(mysqli_query($connection,$sql)){
+ //     echo '<font color="green">Success</font>';
+ //   }else{
+ //     echo '<font color="red">Error</font>';
+ //   }
+ // }
 
 
  
 // var_dump($task);
 			// exit();
 
-?>
