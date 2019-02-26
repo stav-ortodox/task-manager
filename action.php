@@ -77,13 +77,9 @@ if (isset($_POST['delete'])) {
 // очистить	таблицу
 $clear = $_POST['clearT'];
  if (isset($clear)) {
-	$query ="DELETE FROM tasks ORDER BY id DESC LIMIT 1";
+	$query ="DELETE FROM tasks ORDER BY id";
 	$result = mysqli_query($connection, $query) or die("Ошибка " . mysqli_error($connection));
 	// mysqli_close($connection);
-	// $query ="TRUNCATE TABLE tasks";
-	// $result = mysqli_query($connection, $query) or die("Ошибка " . mysqli_error($connection));
-	// mysqli_close($connection);
-	if(mysqli_query($connection, $query)){
     $query = mysqli_query($connection, "SELECT * FROM `tasks` ORDER BY `id`");
            	$num = 1;
            	if (isset($query)  ) {
@@ -105,7 +101,7 @@ $clear = $_POST['clearT'];
         		<?}
         	}
       	}
-     }
+     
     
 
 

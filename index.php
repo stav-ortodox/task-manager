@@ -158,18 +158,17 @@ if (isset($_POST['edit'])) { ?>
 	});
 
 
-
+// очистка листа
  $('#clearT').bind('click', function(){
  		var clearT = '1';
- 		confirm('Вы действительно хотите очистить весь лист задач?');
-			if (result === false) {return;} 
-			else {$.ajax({
+			if (confirm("Вы действительно хотите удалить весь лист задач?")) {
+        $.ajax({
 		 		  type: "POST",
 		 		  url: "action.php",
 		 		  data: {clearT: clearT},
-		 		  success:function(msg){$('#message').html(msg)};
-		 							});
-       			}
+		 		  success:function(msg){$('#message').html(msg)} 
+			});
+			} else {}
  		});
  	
 
